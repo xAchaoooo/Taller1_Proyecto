@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [SerializeField] private float speed = 0.1f;
+    [SerializeField] private float speed = 5f;
     private bool isOnFloor = true;
     [SerializeField] private float jumpForce = 5f;
     private Rigidbody2D rb;
@@ -19,18 +19,28 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    void FixedUpdate()
+    {
         movePlayer();
     }
 
     void movePlayer()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey("left"))
         {
-            transform.Translate(Vector2.right*Time.deltaTime*speed, Space.World);
-        } 
-        if (Input.GetKey(KeyCode.A))
+            rb.velocity = new Vector2(-speed, rb.velocity.y);
+        }
+        if (Input.GetKey("right"))
         {
-            transform.Translate(Vector2.left*Time.deltaTime*speed, Space.World);
+            rb.velocity = new Vector2(speed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            anim.
         }
         jumpPlayer();
     }
@@ -39,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W) && isOnFloor)
         {
-            rb.AddForce(Vector2.up*jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
 
