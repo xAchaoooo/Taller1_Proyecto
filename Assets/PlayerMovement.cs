@@ -7,9 +7,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float speed = 5f;
     private bool isOnFloor = true;
-    [SerializeField] private float jumpForce = 7f;
+    [SerializeField] private float jumpForce = 40f;
     private Rigidbody2D rb;
     private Animator AnimatorPlayer;
+    private float movimientoHorizontal;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        movimientoHorizontal = Input.GetAxisRaw("Horizontal") * speed;
+        AnimatorPlayer.SetFloat("Horizontal", Mathf.Abs(movimientoHorizontal));
     }
 
     void FixedUpdate()
@@ -35,10 +37,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
+            transform.localScale = new Vector3(1, 1, 1);
         }
         else
         {
