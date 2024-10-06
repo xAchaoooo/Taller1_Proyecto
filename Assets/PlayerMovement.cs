@@ -7,13 +7,15 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float speed = 5f;
     private bool isOnFloor = true;
-    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float jumpForce = 7f;
     private Rigidbody2D rb;
+    private Animator AnimatorPlayer;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        AnimatorPlayer = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -25,31 +27,32 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         movePlayer();
+        jumpPlayer();
     }
 
     void movePlayer()
     {
-        if (Input.GetKey("left"))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
         }
-        if (Input.GetKey("right"))
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
         }
         else
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
-            anim.
         }
         jumpPlayer();
     }
 
     void jumpPlayer()
     {
-        if (Input.GetKey(KeyCode.W) && isOnFloor)
+        if (Input.GetKey(KeyCode.Space) && isOnFloor)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            isOnFloor = false;
         }
     }
 
@@ -59,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isOnFloor = true;
         }
+
     }
 
     void OnCollisionExit2D(Collision2D collision)
