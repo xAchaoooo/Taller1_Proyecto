@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] private float speed = 5f;
     private bool isOnFloor = true;
-    [SerializeField] private float jumpForce = 40f;
+    [SerializeField] private float jumpForce = 10f;
     private Rigidbody2D rb;
     private Animator AnimatorPlayer;
     private float movimientoHorizontal;
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         AnimatorPlayer = GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
@@ -67,6 +69,12 @@ public class PlayerMovement : MonoBehaviour
             isOnFloor = true;
         }
 
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            
+            GameOver(); 
+        }
+
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -76,4 +84,14 @@ public class PlayerMovement : MonoBehaviour
             isOnFloor = false;
         }
     }
+
+    void GameOver()
+    {
+
+        AnimatorPlayer.SetBool("IsDead", true);
+        FindObjectOfType<PlayerDeath>().GameOver();
+ 
+    }
+
+
 }
