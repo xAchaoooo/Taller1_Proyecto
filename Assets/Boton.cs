@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 public class Boton : MonoBehaviour
 {
 
-public void Reintentar(){
-    SceneManager.LoadScene(0);
+  public void Reintentar()
+  {
+      Time.timeScale = 1.0f;
+      SceneManager.LoadScene(0);
   }
 
 }

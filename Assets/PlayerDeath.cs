@@ -34,10 +34,4 @@ public class PlayerDeath : MonoBehaviour
         textMesh.text = TextoObjeto + puntosScript.points.ToString(); // Obtener puntos del script Puntos
     }
 
-    public void Reintentar()
-    {
-        Time.timeScale = 1; // Reiniciar el tiempo del juego
-        AnimatorPlayer.SetBool("IsDead", false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reiniciar la escena actual
-    }
 }

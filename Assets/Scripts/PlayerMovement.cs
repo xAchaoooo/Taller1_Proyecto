@@ -71,7 +71,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            
             GameOver(); 
         }
 
@@ -87,10 +86,8 @@ public class PlayerMovement : MonoBehaviour
 
     void GameOver()
     {
-
         AnimatorPlayer.SetBool("IsDead", true);
         FindObjectOfType<PlayerDeath>().GameOver();
- 
     }
 
 
